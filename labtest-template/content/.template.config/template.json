@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "labtest",
+  "classifications": [
+    "Web",
+    "MVC",
+    "SQLite"
+  ],
+  "identity": "LabTest.AspNetCore.Mvc.Sqlite",
+  "name": "ASP.NET Core MVC with SQLite and selectable Cookie/Session state",
+  "shortName": "labmvc",
+  "sourceName": "TemplateProject",
+  "preferNameDirectory": true,
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "symbols": {
+    "state-mode": {
+      "type": "parameter",
+      "datatype": "choice",
+      "defaultValue": "Cookie",
+      "description": "Where the demonstration state value is stored",
+      "choices": [
+        {
+          "choice": "Cookie",
+          "description": "HttpOnly browser cookie"
+        },
+        {
+          "choice": "Session",
+          "description": "Server session tracked by a cookie"
+        }
+      ],
+      "replaces": "STATE_MODE_VALUE"
+    }
+  },
+  "sources": [
+    {
+      "exclude": [
+        "**/[Bb]in/**",
+        "**/[Oo]bj/**",
+        "**/*.db",
+        "**/*.db-shm",
+        "**/*.db-wal",
+        "**/.DS_Store",
+        ".template.config/**/*"
+      ]
+    }
+  ]
+}
