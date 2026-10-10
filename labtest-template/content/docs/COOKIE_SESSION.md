@@ -2,6 +2,24 @@
 
 ตอนสร้างโปรเจกต์เลือก `--state-mode Cookie` หรือ `--state-mode Session` โดยค่าเริ่มต้นคือ Cookie ค่าอยู่ใน `appsettings.json` (`StateMode`) และเปลี่ยนได้ภายหลังโดยแก้ค่าเป็นหนึ่งในสองคำนี้แล้วรีสตาร์ตแอป โค้ดใน `Program.cs` ลงทะเบียน session เฉพาะเมื่อเลือก Session
 
+ชื่อไฟล์ในคู่มือนี้อ้างจาก **โฟลเดอร์รากของโปรเจกต์ที่สร้าง** (โฟลเดอร์เดียวกับไฟล์ `.csproj`) หากกำลังแก้ต้นแบบ ให้เติม `labtest-template/content/` หน้าชื่อไฟล์
+
+## ต้องตั้งค่าที่ไฟล์ไหน
+
+| งาน | ไฟล์ | สิ่งที่แก้ |
+| --- | --- | --- |
+| เลือกโหมดตอนสร้างโปรเจกต์ | `.template.config/template.json` ในต้นแบบเท่านั้น | ตัวเลือก `--state-mode` แทนค่า `STATE_MODE_VALUE` ในไฟล์ตั้งค่า; โปรเจกต์ที่สร้างแล้วไม่มีไฟล์นี้ |
+| เปลี่ยนโหมดของโปรเจกต์ที่สร้างแล้ว | `appsettings.json` | ตั้ง `"StateMode": "Cookie"` หรือ `"Session"` แล้วรีสตาร์ตเว็บ |
+| ตั้งค่า Cookie ฝั่งเซิร์ฟเวอร์ | `Controllers/StateController.cs` | ดู `Response.Cookies.Append`, `Request.Cookies`, `Response.Cookies.Delete` และ `CookieOptions` |
+| เปิด Session ฝั่งเซิร์ฟเวอร์ | `Program.cs` | ดู `AddDistributedMemoryCache`, `AddSession` และ `UseSession`; โค้ดเดิมเปิดให้เมื่อ `StateMode` เป็น `Session` |
+| อ่าน/เขียน Session ใน Controller | `Controllers/StateController.cs` หรือ Controller ที่สร้างเอง | ใช้ `HttpContext.Session.SetString`, `GetString`, `Remove` |
+| เรียก backend จากหน้าเว็บ | `wwwroot/js/site.js` หรือไฟล์ `Views/<ชื่อ Controller>/<ชื่อ Action>.cshtml` | ใส่ `fetch('/state', ...)` หรือ JavaScript สำหรับ Cookie ตามตัวอย่างด้านล่าง |
+| เปลี่ยนชื่อ Cookie หรือเวลาหมดอายุ | `Program.cs` สำหรับ Session cookie; `Controllers/StateController.cs` สำหรับ Cookie ของตัวอย่าง | แก้ `options.Cookie.Name`, `IdleTimeout`, `MaxAge` และนโยบาย Cookie ตามต้องการ |
+
+**ตัวอย่างเปลี่ยนเป็น Session:** แก้ `appsettings.json` ให้มี `"StateMode": "Session"`; ตรวจว่า `Program.cs` ยังมีทั้ง `AddDistributedMemoryCache()`, `AddSession(...)` และ `UseSession()`; รีสตาร์ตเว็บ แล้วเรียก `GET /state` เพื่อดู `mode` เป็น `Session` โหมด Cookie ใช้ขั้นตอนเดียวกันโดยตั้งค่าเป็น `Cookie` ค่า `demo-value` จากโหมดเดิมไม่ถูกย้ายให้โดยอัตโนมัติ
+
+ถ้าจะให้ JavaScript ทำงานบนทุกหน้า ให้วางโค้ดใน `wwwroot/js/site.js` ซึ่งหน้าเริ่มต้นโหลดผ่าน `Views/Shared/_Layout.cshtml` อยู่แล้ว หากใช้เฉพาะหน้าหนึ่ง ให้วาง script ใน Razor view ของหน้านั้น หน้า Home/Privacy ของเทมเพลตยังเป็นหน้าเริ่มต้นเดิมจนกว่าคุณจะแก้เอง
+
 ## แนวทางเลือก
 
 | วิธี | ข้อมูลอยู่ที่ไหน | JavaScript อ่านโดยตรงได้ไหม | เหมาะกับ |

@@ -21,6 +21,8 @@ dotnet run --launch-profile http
 - [การเชื่อมต่อฐานข้อมูล แก้ Model และ CRUD](docs/DATABASE_CRUD.md)
 - [การใช้ Cookie หรือ Session ทั้งหน้าเว็บและเซิร์ฟเวอร์](docs/COOKIE_SESSION.md)
 
+ทั้งสองคู่มือมีตารางระบุไฟล์ที่ต้องแก้และลำดับการตั้งค่า คู่มือฐานข้อมูลครอบคลุม table, SQLite view และวิธีเรียก Stored Procedure เมื่อใช้ SQL Server
+
 การตั้งค่าอยู่ใน `appsettings.json`: `ConnectionStrings:DefaultConnection` และ `StateMode` ค่า `StateMode` คือ `Cookie` หรือ `Session` ตามที่เลือกตอนสร้างโปรเจกต์
 
 ตัวอย่าง `Services/SampleItemRepository.cs` มี CRUD ทั้ง LINQ lambda และ Raw SQL แบบส่งพารามิเตอร์ ตาราง `SampleItems` สร้างโดย migration เริ่มต้น ตัวอย่าง `Controllers/StateController.cs` ให้ลอง Cookie/Session ผ่าน API โดยไม่เปลี่ยนหน้า MVC เริ่มต้น

@@ -44,6 +44,8 @@ dotnet run --launch-profile http
 
 ฐานข้อมูล `<ชื่อโปรเจกต์>.db` ถูกสร้างในโฟลเดอร์โปรเจกต์ในการรันครั้งแรกของ environment `Development` หากต้องสร้างก่อนรัน ใช้ `dotnet ef database update` ในโฟลเดอร์โปรเจกต์ หลังสร้างแล้วอ่านคู่มือใน `README.md`, `docs/DATABASE_CRUD.md` และ `docs/COOKIE_SESSION.md` ที่อยู่ในโปรเจกต์ใหม่
 
+คู่มือ Cookie/Session มีตารางบอกไฟล์สำหรับเปิด middleware, ตั้งอายุ Cookie, และเรียกจาก JavaScript คู่มือฐานข้อมูลมีตารางบอกไฟล์สำหรับ connection string, Model, `DbContext`, migration, table, view และ Stored Procedure โดย SQLite ไม่รองรับ Stored Procedure จึงมีตัวอย่างส่วนนี้สำหรับ SQL Server แยกไว้
+
 ## โครงสร้างเทมเพลตและวิธีสร้างเอง
 
 1. เริ่มจาก `dotnet new mvc -n TemplateProject -o content --framework net10.0` โดย `TemplateProject` เป็นชื่อ placeholder ที่เทมเพลตใช้แทนเมื่อสร้างโปรเจกต์
